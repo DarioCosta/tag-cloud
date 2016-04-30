@@ -54,7 +54,15 @@ export class TagCloudService{
 	private buildTagCloudF(text: string, maxWords: number, highlightFunction: (word: string) => boolean, ignoreFunction: (word: string) => boolean): TagCloud {
 		text = text.replace(/\W+/g, " ");
 		var words: string[] = text.split(" ");
-		var map: TagsMap = this.buildMapF(words, ignoreFunction);
+
+		var buildMapFunction = (word: string): boolean => {
+			if (highlightFunction(word)) {
+				return false;
+			} else {
+				return (ignoreFunction(word));
+			}
+		}
+		var map: TagsMap = this.buildMapF(words, buildMapFunction);
 		var tags: Tag[] = [];
 		var highlightVal: number = 0;
 		for (var key in map) {
@@ -71,10 +79,17 @@ export class TagCloudService{
 		var max: number = 0;
 		if (tags.length > 0) {
 			var index: number = 0;
-			while (tags[index].highlight) {
+			while ( (tags[index]) && (tags[index].highlight) ) {
+				if (tags[index].size > max){
+					max = tags[index].size;
+				}
 				index++;
 			}
-			max = tags[index].size;
+			if (tags[index]) {
+				if (tags[index].size > max) {
+					max = tags[index].size;
+				}
+			}
 		}
 		tags.sort((a, b) => {
 			if (a.name == b.name) return 0;

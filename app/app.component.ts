@@ -10,7 +10,7 @@ import {TagCloudComponent} from './tag-cloud/tag-cloud.component';
 			<label for="showSize">Visualizza numero occorrenze</label>
         <input type="checkbox" name="showSize" [(ngModel)]="showSize">
         <span>{{showSize}}</span>
-    	<tag-cloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignore]="['alla']" [highlight]="['padre', 'mentre', 'infine']"></tag-cloud>
+    	<tag-cloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
     `,
     directives:[TagCloudComponent]
 })
@@ -18,9 +18,31 @@ export class AppComponent {
 	public size = 50;
 	public latestSelected: string = "";
 	public showSize: boolean = false;
+
 	onSelectedTag(name: string){
 		this.latestSelected = name;
 	}
+
+	public highlight: string[] = ['padre', 'mentre', 'infine'];
+	public ignore: string[] = ['alla'];
+	public minWordLength: number = 3;
+
+	public highlightFunction = (word: string): boolean => {
+		return this.arrayContainsWord(this.highlight, word);
+	}
+ 	public ignoreFunction = (word: string): boolean => {
+		return (word.length <= this.minWordLength) || this.arrayContainsWord(this.ignore, word); 
+	}
+
+	private arrayContainsWord = (array: string[], word: string) : boolean => {
+		let lowerCaseWord = word.toLowerCase();
+		return array.some(function(element, i) {
+			if (lowerCaseWord === element.toLowerCase()) {
+				return true;
+	  		}
+		});
+	}
+
 	public paragraph: String = `
 LA SENTENZA
 

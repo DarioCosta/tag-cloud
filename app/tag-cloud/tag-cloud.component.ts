@@ -14,7 +14,7 @@ import {TagCloudService} from './tag-cloud.service';
 			</div>
 		</div>
 	`,
-	inputs: ['text', 'maxWords', 'minLength', 'highlight', 'ignore', 'masSizeRatio','showSize'],
+	inputs: ['text', 'maxWords', 'highlightFunction', 'ignoreFunction', 'maxSizeRatio','showSize'],
 	outputs: ['selectedTag'],
 	directives: [TagBadgeComponent],
 	providers: [TagCloudService]
@@ -22,9 +22,8 @@ import {TagCloudService} from './tag-cloud.service';
 export class TagCloudComponent implements OnInit {
 	public text: string;
 	public maxWords: number = 20;
-	public highlight: string[] = [];
-	public ignore: string[] = [];
-	public minLength: number = 3;
+	public highlightFunction: (word: string) => boolean;
+	public ignoreFunction: (word: string) => boolean;
 	public showSize: boolean = true;
 	public maxSizeRatio: number = 5;
 	public selectedTag:EventEmitter<string> = new EventEmitter<string>();
@@ -32,10 +31,10 @@ export class TagCloudComponent implements OnInit {
 	public tagCloud: TagCloud;
 	public sizeRatio: number = 10;
 
-	constructor(public _tagCloudService: TagCloudService) {}
+	constructor(private _tagCloudService: TagCloudService) {}
 
 	ngOnInit() {
-		this._tagCloudService.getTagCloud(this.text, this.maxWords, this.highlight, this.minLength, this.ignore).then(tagCloud => {
+		this._tagCloudService.getTagCloudF(this.text, this.maxWords, this.highlightFunction, this.ignoreFunction).then(tagCloud => {
 			this.tagCloud = tagCloud;
 			this.sizeRatio = (this.maxSizeRatio * 100 - 100) / (this.tagCloud.max - 1);
 		});
