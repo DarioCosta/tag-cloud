@@ -1,17 +1,21 @@
 import {Component} from '@angular/core';
 import {TagCloudComponent} from './tag-cloud/tag-cloud.component';
 
+// template: `
+//   <h1>Tag Cloud</h1>
+// <div>Ultimo tag selezionato = {{latestSelected}}</div>
+// <div>
+//   <label for="showSize">Visualizza numero occorrenze</label>
+//     <input type="checkbox" name="showSize" [(ngModel)]="showSize">
+//     <span>{{showSize}}</span>
+//   <tag-cloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
+// `,
+
+
 @Component({
     selector: 'app-root',
-    template: `
-    	<h1>Tag Cloud</h1>
-		<div>Ultimo tag selezionato = {{latestSelected}}</div>
-		<div>
-			<label for="showSize">Visualizza numero occorrenze</label>
-        <input type="checkbox" name="showSize" [(ngModel)]="showSize">
-        <span>{{showSize}}</span>
-    	<tag-cloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
-    `,
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 	public size = 50;
@@ -22,15 +26,19 @@ export class AppComponent {
 		this.latestSelected = name;
 	}
 
-	public highlight: string[] = ['padre', 'mentre', 'infine'];
-	public ignore: string[] = ['alla'];
+  public importantWords: string ="";
+  public ignoreWords: string = "";
+	// public highlight: string[] = ['padre', 'mentre', 'infine'];
+	// public ignore: string[] = ['alla'];
 	public minWordLength: number = 3;
 
 	public highlightFunction = (word: string): boolean => {
-		return this.arrayContainsWord(this.highlight, word);
+    var highlight: string[] = this.importantWords.replace(/\W+/g, " ").split(" ");
+		return this.arrayContainsWord(highlight, word);
 	}
  	public ignoreFunction = (word: string): boolean => {
-		return (word.length <= this.minWordLength) || this.arrayContainsWord(this.ignore, word);
+    var ignore: string[] = this.ignoreWords.replace(/\W+/g, " ").split(" ");
+		return (word.length <= this.minWordLength) || this.arrayContainsWord(ignore, word);
 	}
 
 	private arrayContainsWord = (array: string[], word: string) : boolean => {

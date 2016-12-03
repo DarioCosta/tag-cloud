@@ -1,3 +1,5 @@
-<p>
-  tag-cloud works!
-</p>
+<div *ngIf="tagCloud">
+  <div [style.width]="'100%'">
+    <tag-badge *ngFor="let tag of tagCloud.tags" [tag]="tag" [sizeRatio]="sizeRatio" [showSize]="showSize" (selected)="onTagSelected($event)"></tag-badge>
+  </div>
+</div>

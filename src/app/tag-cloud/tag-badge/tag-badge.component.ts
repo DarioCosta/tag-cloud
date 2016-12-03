@@ -1,11 +1,14 @@
 import {Component, OnInit, EventEmitter} from '@angular/core';
 import {Tag} from '../tag';
 
+// template: `
+// 		<span [ngStyle]="setStyles()" [ngClass]="setClasses()" (click)="tagSelected()">{{tag.name}} </span><span *ngIf="showSize">({{tag.size}})</span>
+// `,
+
 @Component({
 	selector: 'tag-badge',
-	template: `
-			<span [ngStyle]="setStyles()" [ngClass]="setClasses()" (click)="tagSelected()">{{tag.name}} </span><span *ngIf="showSize">({{tag.size}})</span>
-	`,
+	templateUrl: './tag-badge.component.html',
+  styleUrls: ['./tag-badge.component.css'],
 	inputs: ['tag', 'showSize', 'sizeRatio'],
 	outputs: ['selected']
 })

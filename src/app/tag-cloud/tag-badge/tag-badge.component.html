@@ -1,3 +1,1 @@
-<p>
-  tag-badge works!
-</p>
+<span [ngStyle]="setStyles()" [ngClass]="setClasses()" (click)="tagSelected()">{{tag.name}} </span><span *ngIf="showSize">({{tag.size}})</span>

@@ -4,16 +4,20 @@ import {TagCloud} from './tag-cloud';
 import {TagBadgeComponent} from './tag-badge/tag-badge.component';
 import {TagCloudService} from './tag-cloud.service';
 
+// template: `
+// 	<div *ngIf="tagCloud">
+// 		<div>{{tagCloud.max}} - {{sizeRatio}}</div>
+// 		<div [style.width]="'100%'">
+// 			<tag-badge *ngFor="let tag of tagCloud.tags" [tag]="tag" [sizeRatio]="sizeRatio" [showSize]="showSize" (selected)="onTagSelected($event)"></tag-badge>
+// 		</div>
+// 	</div>
+// `,
+
+
 @Component({
 	selector: 'tag-cloud',
-	template: `
-		<div *ngIf="tagCloud">
-			<div>{{tagCloud.max}} - {{sizeRatio}}</div>
-			<div [style.width]="'100%'">
-				<tag-badge *ngFor="let tag of tagCloud.tags" [tag]="tag" [sizeRatio]="sizeRatio" [showSize]="showSize" (selected)="onTagSelected($event)"></tag-badge>
-			</div>
-		</div>
-	`,
+	templateUrl: './tag-cloud.component.html',
+  styleUrls: ['./tag-cloud.component.css'],
 	inputs: ['text', 'maxWords', 'highlightFunction', 'ignoreFunction', 'maxSizeRatio','showSize'],
 	outputs: ['selectedTag'],
 	providers: [TagCloudService]
@@ -33,6 +37,10 @@ export class TagCloudComponent implements OnInit {
 	constructor(private _tagCloudService: TagCloudService) {}
 
 	ngOnInit() {
+		this.refresh();
+	}
+
+	public refresh() {
 		this._tagCloudService.getTagCloudF(this.text, this.maxWords, this.highlightFunction, this.ignoreFunction).then(tagCloud => {
 			this.tagCloud = tagCloud;
 			this.sizeRatio = (this.maxSizeRatio * 100 - 100) / (this.tagCloud.max - 1);

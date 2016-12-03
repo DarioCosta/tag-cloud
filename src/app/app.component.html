@@ -1,3 +1,36 @@
-<h1>
-  {{title}}
-</h1>
+<h1>Tag Cloud</h1>
+<div>Latest selected tag = {{latestSelected}}</div>
+<tag-cloud #TagCloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
+<button (click)="TagCloud.refresh()">Tag Cloud</button>
+<div>
+  <div>
+    <label for="paragraph">Text</label>
+  </div>
+  <div>
+    <textarea name="text" [(ngModel)]="paragraph" cols="100" rows="30"></textarea>
+  </div>
+</div>
+<div>
+<label for="showSize">Show frequency</label>
+  <input type="checkbox" name="showSize" [(ngModel)]="showSize">
+</div>
+<div>
+<label for="size">Max number of tags</label>
+  <input type="number" name="size" [(ngModel)]="size">
+</div>
+<div>
+  <div>
+    <label for="ignore">Ignore words</label>
+  </div>
+  <div>
+    <textarea name="ignore" [(ngModel)]="ignoreWords" cols="100" rows="5"></textarea>
+  </div>
+</div>
+<div>
+  <div>
+    <label for="important">Important words</label>
+  </div>
+  <div>
+    <textarea name="important" [(ngModel)]="importantWords" cols="100" rows="5"></textarea>
+  </div>
+</div>
