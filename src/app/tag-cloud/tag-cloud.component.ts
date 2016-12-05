@@ -37,10 +37,10 @@ export class TagCloudComponent implements OnInit {
 	constructor(private _tagCloudService: TagCloudService) {}
 
 	ngOnInit() {
-		this.refresh();
+		this.build();
 	}
 
-	public refresh() {
+	public build() {
 		this._tagCloudService.getTagCloudF(this.text, this.maxWords, this.highlightFunction, this.ignoreFunction).then(tagCloud => {
 			this.tagCloud = tagCloud;
 			this.sizeRatio = (this.maxSizeRatio * 100 - 100) / (this.tagCloud.max - 1);

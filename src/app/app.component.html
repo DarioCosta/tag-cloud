@@ -1,8 +1,9 @@
+<div id="github"><a href="https://github.com/DarioCosta/tag-cloud"><img src="GitHub-Mark-32px.png" alt="fork me on GitHub">fork me on GitHub</a></div>
 <h1>Tag Cloud</h1>
 <div>Latest selected tag = {{latestSelected}}</div>
 <tag-cloud #TagCloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
 <div>
-  <button (click)="TagCloud.refresh()">Tag Cloud</button>
+  <button (click)="TagCloud.build()">Tag Cloud</button>
 </div>
 <div id="text">
   <div>
