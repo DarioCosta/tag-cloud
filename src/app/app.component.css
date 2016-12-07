@@ -1,5 +1,6 @@
 * {
  font-family: Arial;
+ box-sizing: border-box;
 }
 h1 {
   float:none;
@@ -12,6 +13,8 @@ button{
   display:block;
   margin-top: 10pt;
   margin-bottom: 20pt;
+  width:300px;
+  height:60px;
 }
 
 tag-cloud {
@@ -24,17 +27,22 @@ tag-cloud {
   border-radius: 5px;
 }
 
-#text {
-  float: left;
+@media (min-width: 800px) {
+  #text {
+    float: left;
+    width: 50%;
+    padding-right: 8px;
+  }
+  #options {
+    float: left;
+    width: 50%;
+    padding-left: 8px;
+  }
 }
-#options {
-  float: right;
-}
-
 #github {
   width:100%;
   text-align:right;
 }
 textarea {
-  width: 650px;
+  width: 100%;
 }

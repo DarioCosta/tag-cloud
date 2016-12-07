@@ -3,7 +3,7 @@
 <div>Latest selected tag = {{latestSelected}}</div>
 <tag-cloud #TagCloud (selectedTag)="onSelectedTag($event)" [text]="paragraph" [showSize]="showSize" [maxWords]="size" [ignoreFunction]="ignoreFunction" [highlightFunction]="highlightFunction"></tag-cloud>
 <div>
-  <button (click)="TagCloud.build()">Tag Cloud</button>
+  <button (click)="TagCloud.build()">Build Tag Cloud</button>
 </div>
 <div id="text">
   <div>
@@ -27,7 +27,7 @@
       <label for="ignore">Ignore words</label>
     </div>
     <div>
-      <textarea name="ignore" [(ngModel)]="ignoreWords" cols="100" rows="5"></textarea>
+      <textarea name="ignore" [(ngModel)]="ignoreWords" rows="5"></textarea>
     </div>
   </div>
   <div>
@@ -35,7 +35,7 @@
       <label for="important">Important words</label>
     </div>
     <div>
-      <textarea name="important" [(ngModel)]="importantWords" cols="100" rows="5"></textarea>
+      <textarea name="important" [(ngModel)]="importantWords" rows="5"></textarea>
     </div>
   </div>
 </div>
