@@ -4,23 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { TagCloudComponent } from './tag-cloud/tag-cloud.component';
-import { TagBadgeComponent } from './tag-cloud/tag-badge/tag-badge.component';
-
-import { TagCloudService } from './tag-cloud/tag-cloud.service';
+import { TagCloudModule } from './tag-cloud/tag-cloud.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TagCloudComponent,
-    TagBadgeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    TagCloudModule
   ],
-  providers: [TagCloudService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
